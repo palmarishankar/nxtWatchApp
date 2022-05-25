@@ -1,1 +1,36 @@
 
+import Cookies from 'js-cookie'
+import {Component} from 'react'
+import NavBar from '../NavBar'
+import Header from '../Header'
+
+class Trending extends Component {
+  componentDidMount() {
+    this.getTrendingVideos()
+  }
+
+  getTrendingVideos = async () => {
+    const jwtToken = Cookies.get('jwt_token')
+    const url = 'https://apis.ccbp.in/videos/trending'
+    const options = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      method: 'GET',
+    }
+    const response = await fetch(url, options)
+    const data = response.json()
+    console.log(data)
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <Header />
+      </div>
+    )
+  }
+}
+
+export default Trending
